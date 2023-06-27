@@ -1,0 +1,1032 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Projects</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Intro -->
+				<div id="intro">
+					<h1>Patrick Hunt</h1>
+					<p>Welcome to my Portfolio!</p>
+				</div>
+
+				<!-- Header -->
+					
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="generic.html">Resumé</a></li>
+							<li class="active"><a href="elements.html">Projects</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<h1>Projects</h1>
+								</header>
+
+								<!-- Text stuff -->
+									<h2><a id="project1">Python Text-Base Game</a></h2>
+									<p>Here is the code for the game:</p>
+									<pre><code><span class="inner-pre" style="font-size: 13px">
+# Patrick Hunt
+# IT 140
+
+# This function returns the item for a given room.
+
+
+def get_item(currentRoom):
+
+	# This dictionary is used to reference items in various rooms.
+
+	items = {'Entry': 'No Item', 'Main Foyer': 'Key', 'Locked Storage': 'Manuscript',
+			 'Ancient Explorers Exhibit': 'Golden Telescope', 'Ancient Civ Exhibit': 'Stone Statue',
+			 'Art Exhibit': 'Pollock Painting', 'Gem Room': 'Emerald', 'Warrior Exhibit': 'Katana',
+			 'Security Room': 'No Item'}
+
+	return items[currentRoom]
+
+
+# This function prints the possible moves and to which rooms a player can make.
+
+
+def possible_moves(currentRoom):
+
+	# This dictionary links a room to other rooms, so we can print the possible moves from each room.
+
+	rooms = {
+		'Entry': {'North': 'Main Foyer'},
+		'Main Foyer': {'North': 'Locked Storage', 'East': 'Ancient Explorers Exhibit', 'West': 'Ancient Civ Exhibit'},
+		'Locked Storage': {'South': 'Main Foyer'},
+		'Ancient Explorers Exhibit': {'North': 'Art Exhibit', 'West': 'Main Foyer'},
+		'Ancient Civ Exhibit': {'South': 'Warrior Exhibit', 'North': 'Gem Room', 'East': 'Main Foyer'},
+		'Art Exhibit': {'South': 'Ancient Explorers Exhibit', 'East': 'Security Room'},
+		'Security Room': {'West': 'Art Exhibit'},
+		'Gem Room': {'South': 'Ancient Civ Exhibit'},
+		'Warrior Exhibit': {'North': 'Ancient Civ Exhibit'}
+	}
+
+	print("Possible moves: get 'Item', {}".format(rooms[currentRoom]))
+
+
+# This function prints the instructions.
+
+
+def show_instructions():
+	print('The Heist at the Museum')
+	print('Collect 6 items to beat the security, or else spend time in a cell!')
+	print('Move commands: go South, go North, go East, go West')
+	print("To add to Inventory: get 'item name'")
+	print('-' * 20)
+
+
+# This function prints the status including the room the player is in, the inventory, and the item in the current room.
+
+
+def show_status(currentRoom, inventory):
+
+	# This dictionary holds our items and where they're located, so we can assign an item to a variable.
+
+	items = {'Entry': 'No Item', 'Main Foyer': 'Key', 'Locked Storage': 'Manuscript',
+			 'Ancient Explorers Exhibit': 'Golden Telescope', 'Ancient Civ Exhibit': 'Stone Statue',
+			 'Art Exhibit': 'Pollock Painting', 'Gem Room': 'Emerald', 'Warrior Exhibit': 'Katana',
+			 'Security Room': 'No Item'}
+
+	roomItem = items[currentRoom]
+	print('You are in the {}.'.format(currentRoom))
+	print('Current Inventory: {}'.format(inventory))
+	print('Item in current room: {}'.format(roomItem))
+
+
+# This is the main function which contains the main components that will run our program.
+
+
+def main():
+
+	# This dictionary links a room to other rooms.
+
+	rooms = {
+		'Entry': {'North': 'Main Foyer'},
+		'Main Foyer': {'North': 'Locked Storage', 'East': 'Ancient Explorers Exhibit', 'West': 'Ancient Civ Exhibit'},
+		'Locked Storage': {'South': 'Main Foyer'},
+		'Ancient Explorers Exhibit': {'North': 'Art Exhibit', 'West': 'Main Foyer'},
+		'Ancient Civ Exhibit': {'South': 'Warrior Exhibit', 'North': 'Gem Room', 'East': 'Main Foyer'},
+		'Art Exhibit': {'South': 'Ancient Explorers Exhibit', 'East': 'Security Room'},
+		'Security Room': {'West': 'Art Exhibit'},
+		'Gem Room': {'South': 'Ancient Civ Exhibit'},
+		'Warrior Exhibit': {'North': 'Ancient Civ Exhibit'}
+	}
+
+	# A list to test if entries are valid or not.
+
+	valid_list_options = ('go South', 'go North', 'go East', 'go West', 'exit')
+
+	# Initialize our variables.
+
+	currentRoom = 'Entry'
+	inventory = []
+
+	# Print our opening welcome and directions.
+
+	show_instructions()
+
+	# The main game loop.
+
+	while True:
+		if currentRoom == 'exit':
+			print('Thank you for playing my game!')
+			break
+		else:
+
+			# This inner while loop keeps the user playing as long as they do not enter exit.
+
+			while True:
+				if currentRoom == list(rooms.keys())[0]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input('Enter your move: ')
+
+					# This inner while loop is needed in each room so that if invalid commands are entered the user will
+					# be prompted again without having to reprint the current room.
+
+					while True:
+
+						# If clauses are in each room to decide where to go next or if it needs another input.
+
+						if command == 'go North':
+							currentRoom = 'Main Foyer'
+							break
+						elif command == 'exit':
+							currentRoom = 'exit'
+							break
+
+						# Programmer cheat codes for easter egg.
+
+						elif command == 'cheat codes':
+							inventory = ['Key', 'Manuscript', 'Stone Statue', 'Emerald', 'Katana', 'Golden Telescope,',
+										 'Pollock Painting']
+							currentRoom = 'Art Exhibit'
+							break
+						else:
+							if command in valid_list_options:
+								command = input('Valid answer but not for this room, please enter a valid command: ')
+								continue
+							else:
+								command = input('Invalid answer, please enter a valid command: ')
+								continue
+				elif currentRoom == list(rooms.keys())[1]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input('Enter your move: ')
+					while True:
+						if command == 'go North':
+							currentRoom = 'Locked Storage'
+							break
+						elif command == 'go East':
+							currentRoom = 'Ancient Explorers Exhibit'
+							break
+						elif command == 'go West':
+							currentRoom = 'Ancient Civ Exhibit'
+							break
+
+						# This command checks to see if the get 'item' command has been entered.
+
+						elif command == 'get Key':
+
+							# Checks to see if the 'item' has already been picked up and breaks if it does as to not
+							# repeat.
+
+							if 'Key' in inventory:
+								print("You already have that item! Let's move on.")
+								break
+
+							# If 'item' is not in the inventory this command adds it and prints a notification.
+
+							else:
+								inventory.append(get_item(currentRoom))
+								print("You got the 'Key'!")
+								break
+						elif command == 'exit':
+							currentRoom = 'exit'
+							break
+						else:
+							if command in valid_list_options:
+								command = input('Valid answer but not for this room, please enter a valid command: ')
+								continue
+							else:
+								command = input('Invalid, please enter a valid command: ')
+								continue
+				elif currentRoom == list(rooms.keys())[2]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input('Enter your move: ')
+					while True:
+						if command == 'go South':
+							currentRoom = 'Main Foyer'
+							break
+						elif command == 'exit':
+							currentRoom = 'exit'
+							break
+						elif command == 'get Manuscript':
+							if 'Manuscript' in inventory:
+								break
+							else:
+								inventory.append(get_item(currentRoom))
+								print("You got the 'Manuscript'!")
+								break
+						else:
+							if command in valid_list_options:
+								command = input('Valid answer but not for this room, please enter a valid command: ')
+								continue
+							else:
+								command = input('Invalid, please enter a valid command: ')
+								continue
+				elif currentRoom == list(rooms.keys())[3]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input('Enter your move: ')
+					while True:
+						if command == 'go West':
+							currentRoom = 'Main Foyer'
+							break
+						elif command == 'go North':
+							currentRoom = 'Art Exhibit'
+							break
+						elif command == 'exit':
+							currentRoom = 'exit'
+							break
+						elif command == 'get Golden Telescope':
+							if 'Golden Telescope' in inventory:
+								break
+							else:
+								inventory.append(get_item(currentRoom))
+								print("You got the 'Golden Telescope'!")
+								break
+						else:
+							if command in valid_list_options:
+								command = input('Valid answer but not for this room, please enter a valid command: ')
+								continue
+							else:
+								command = input('Invalid, please enter a valid command: ')
+								continue
+				elif currentRoom == list(rooms.keys())[4]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input('Enter your move: ')
+					while True:
+						if command == 'go East':
+							currentRoom = 'Main Foyer'
+							break
+						elif command == 'go North':
+							currentRoom = 'Gem Room'
+							break
+						elif command == 'go South':
+							currentRoom = 'Warrior Exhibit'
+							break
+						elif command == 'exit':
+							currentRoom = 'exit'
+							break
+						elif command == 'get Stone Statue':
+							if 'Stone Statue' in inventory:
+								break
+							else:
+								inventory.append(get_item(currentRoom))
+								print("You got the 'Stone Statue'!")
+								break
+						else:
+							if command in valid_list_options:
+								command = input('Valid answer but not for this room, please enter a valid command: ')
+								continue
+							else:
+								command = input('Invalid, please enter a valid command: ')
+								continue
+				elif currentRoom == list(rooms.keys())[5]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input('Enter your move: ')
+					while True:
+						if command == 'go East':
+							if len(inventory) == 7:
+								currentRoom = 'Security Room'
+								break
+							else:
+								print("You haven't collected all 6 items! Go collect them all to advance.")
+								break
+						elif command == 'go South':
+							currentRoom = 'Ancient Explorers Exhibit'
+							break
+						elif command == 'exit':
+							currentRoom = 'exit'
+							break
+						elif command == 'get Pollock Painting':
+							if 'Pollock Painting' in inventory:
+								break
+							else:
+								inventory.append(get_item(currentRoom))
+								print("You got the Pollock Painting'!")
+								break
+						else:
+							if command in valid_list_options:
+								command = input('Valid answer but not for this room, please enter a valid command: ')
+								continue
+							else:
+								command = input('Invalid, please enter a valid command: ')
+								continue
+				elif currentRoom == list(rooms.keys())[6]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input("You have made it to the security room with all the items you need. Type: ':)' to "
+									"win. ")
+					while True:
+						if command == ':)':
+							print("Congratulations on being the best criminal!")
+							currentRoom = 'exit'
+							break
+						else:
+							print("YoU lOsE!")
+							currentRoom = 'exit'
+							break
+				elif currentRoom == list(rooms.keys())[7]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input('Enter your move: ')
+					while True:
+						if command == 'go South':
+							currentRoom = 'Ancient Civ Exhibit'
+							break
+						elif command == 'exit':
+							currentRoom = 'exit'
+							break
+						elif command == 'get Emerald':
+							if 'Emerald' in inventory:
+								break
+							else:
+								inventory.append(get_item(currentRoom))
+								print("You got the 'Emerald'!")
+								break
+						else:
+							if command in valid_list_options:
+								command = input('Valid answer but not for this room, please enter a valid command: ')
+								continue
+							else:
+								command = input('Invalid, please enter a valid command: ')
+								continue
+				elif currentRoom == list(rooms.keys())[8]:
+					show_status(currentRoom, inventory)
+					possible_moves(currentRoom)
+					command = input('Enter your move: ')
+					while True:
+						if command == 'go North':
+							currentRoom = 'Ancient Civ Exhibit'
+							break
+						elif command == 'exit':
+							currentRoom = 'exit'
+							break
+						elif command == 'get Katana':
+							if 'Katana' in inventory:
+								break
+							else:
+								inventory.append(get_item(currentRoom))
+								print("You got the 'Katana'!")
+								break
+						else:
+							if command in valid_list_options:
+								command = input('Valid answer but not for this room, please enter a valid command: ')
+								continue
+							else:
+								command = input('Invalid, please enter a valid command: ')
+								continue
+				else:
+					break
+			continue
+
+
+if __name__ == "__main__":
+	main()
+	
+									</span></code></pre>
+								
+									<!-- Text stuff -->
+										<h2><a id="project2">Java Pet Grooming Service Portal</a></h2>
+										<p>Here is the code for the portal:</p>
+										<h4>Driver File:</h4>
+										<pre><code><span class="inner-pre" style="font-size: 13px">
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Driver {
+	
+	//Declare our array lists.
+	private static ArrayList<Dog> dogList = new ArrayList<Dog>();
+	private static ArrayList<Monkey> monkeyList = new ArrayList<Monkey>();  
+	
+	public static void main(String[] args) {
+		
+		//Initialize scanner so we can take inputs from  user.
+		Scanner scnr = new Scanner(System.in);
+		
+		initializeDogList();
+		initializeMonkeyList();
+		
+		//Declare variable to be used for userInput and run loop for menu.
+		int userInput;
+		String userInput1;
+		do { 
+			
+			
+			displayMenu();
+			
+			//Using a try statement so we can catch any inputs that are invalid.
+			try {
+				if (scnr.hasNextInt()) {
+					userInput = scnr.nextInt();
+					if (userInput == 1) {
+						scnr.nextLine();
+						intakeNewDog(scnr);
+					}
+					else if (userInput == 2) {
+						scnr.nextLine();
+						intakeNewMonkey(scnr);
+					}
+					else if (userInput == 3) {
+						scnr.nextLine();
+						reserveAnimal(scnr);
+					}
+					else if (userInput == 4) {
+						printAnimals(userInput);
+					}
+					else if (userInput == 5) {
+						printAnimals(userInput);
+					}
+					else if (userInput == 6) {
+						printAnimals(userInput);
+					}
+					else {
+						throw new Exception("Invalid option. Try again.");
+					}
+				}
+				else if (scnr.hasNext()) {
+					userInput1 = scnr.nextLine();
+					if (userInput1.equals("q")) {
+						break;
+					}
+					else {
+						throw new Exception("Invalid option. Try again.");
+					}
+				}
+			}
+			
+			//Here our catch inputs output error messages for wrong inputs.
+			catch (InputMismatchException e) {
+				System.out.println("Invalid input. Try again.");
+			}
+			
+			catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+		} while (true);
+
+	}
+
+	// This method prints the menu options
+	public static void displayMenu() {
+		System.out.println("\n\n");
+		System.out.println("\t\t\t\tRescue Animal System Menu");
+		System.out.println("[1] Intake a new dog");
+		System.out.println("[2] Intake a new monkey");
+		System.out.println("[3] Reserve an animal");
+		System.out.println("[4] Print a list of all dogs");
+		System.out.println("[5] Print a list of all monkeys");
+		System.out.println("[6] Print a list of all animals that are not reserved");
+		System.out.println("[q] Quit application");
+		System.out.println();
+		System.out.println("Enter a menu selection");
+	}
+
+
+	// Adds dogs to a list for testing
+	public static void initializeDogList() {
+		Dog dog1 = new Dog("Spot", "German Shepherd", "male", "1", "25.6", "05-12-2019", "United States", "intake", false, "United States");
+		Dog dog2 = new Dog("Rex", "Great Dane", "male", "3", "35.2", "02-03-2020", "United States", "Phase I", false, "United States");
+		Dog dog3 = new Dog("Bella", "Chihuahua", "female", "4", "25.6", "12-12-2019", "Canada", "in service", false, "Canada");
+
+		dogList.add(dog1);
+		dogList.add(dog2);
+		dogList.add(dog3);
+	}
+
+
+	// Adds monkeys to a list for testing
+	public static void initializeMonkeyList() {
+		Monkey monkey1 = new Monkey ("Keith", "Macaque", "male", "7", "38", "06-02-2023", "Brazil", "intake", false, "United States", "3.14", "32", "12.6");
+		
+		monkeyList.add(monkey1);
+	}
+
+
+	//Intake new dog method, checks if name is already in system, need to add instantiation of the new dog.
+	public static void intakeNewDog(Scanner scnr) {
+		System.out.println("What is the dog's name?");
+		String name = scnr.nextLine();
+		
+		//Checks if dog is already in the system.
+		for(Dog dog: dogList) {
+			if(dog.getName().equalsIgnoreCase(name)) {
+				System.out.println("\n\nThis dog is already in our system\n\n");
+				return; //returns to menu
+			}
+		}
+		
+		//Add instantiation for new dog.
+		Dog dog4 = new Dog(); 
+		
+		//Set name and get inputs from user to add to the system.
+		dog4.setName(name);
+		
+		System.out.println("Please enter the dog's breed.");
+		String breed = scnr.nextLine();
+		dog4.setBreed(breed);
+		
+		System.out.println("Please enter the dog's gender.");
+		String gender = scnr.nextLine();
+		dog4.setGender(gender);
+		
+		System.out.println("Please enter the dog's age.");
+		String age = scnr.nextLine();
+		dog4.setAge(age);
+		
+		System.out.println("Please enter the dog's weight.");
+		String weight = scnr.nextLine();
+		dog4.setGender(weight);
+		
+		System.out.println("Please enter the dog's acquisition date.");
+		String acquisitionDate = scnr.nextLine();
+		dog4.setAcquisitionDate(acquisitionDate);
+		
+		System.out.println("Please enter the dog's acquisition country.");
+		String acquisitionCountry = scnr.nextLine();
+		dog4.setAcquisitionLocation(acquisitionCountry);
+		
+		dog4.setTrainingStatus("Intake");
+		dog4.setReserved(false);
+		dog4.setInServiceCountry("none");
+		
+		//Add the newly instantiated dog to the array list.
+		dogList.add(dog4);   
+		
+	}
+
+	//Intake new monkey method, checks if name is already in system, then checks if species is valid, then takes inputs for info.
+	public static void intakeNewMonkey(Scanner scnr) {
+		System.out.println("What is the monkey's name?");
+		String name = scnr.nextLine();
+		
+		for(Monkey monkey: monkeyList) {
+			if(monkey.getName().equalsIgnoreCase(name)) {
+				System.out.println("\n\nThis monkey is already in our system\n\n");
+				return; //returns to menu
+			}
+		}
+		
+		System.out.println("What species is the monkey?");
+		String species = scnr.nextLine();
+		
+		//This loop checks species and will break when it finds a match or output an error if it does not.
+		do {   
+			if (species.equals("capuchin")) {
+				break;
+			}
+			else if (species.equals( "guenon")){
+				break;
+			}
+			else if (species.equals("macaque")) {
+				break;
+			}
+			else if (species.equals("marmoset")) {
+				break;
+			}
+			else if (species.equals("squirrel monkey")) {
+				break;
+			}
+			else if (species.equals("tamarin")) {
+				break;
+			}
+			else {
+				System.out.println("Invalid species.");
+				return;
+			}
+		} while (true);
+		
+		//Instantiate a new monkey, set name and species, and then collect the rest of information.
+		Monkey monkey2 = new Monkey();
+		monkey2.setName(name);
+		monkey2.setSpecies(species);
+		
+		System.out.println("Please enter the monkey's gender.");
+		String gender = scnr.nextLine();
+		monkey2.setGender(gender);
+		
+		System.out.println("Please enter the monkey's age.");
+		String age = scnr.nextLine();
+		monkey2.setAge(age);
+		
+		System.out.println("Please enter the monkey's weight.");
+		String weight = scnr.nextLine();
+		monkey2.setGender(weight);
+		
+		System.out.println("Please enter the monkey's acquisition date.");
+		String acquisitionDate = scnr.nextLine();
+		monkey2.setAcquisitionDate(acquisitionDate);
+		
+		System.out.println("Please enter the monkey's acquisition country.");
+		String acquisitionCountry = scnr.nextLine();
+		monkey2.setAcquisitionLocation(acquisitionCountry);
+		
+		monkey2.setTrainingStatus("Intake");
+		monkey2.setReserved(false);
+		monkey2.setInServiceCountry("none");
+		
+		monkeyList.add(monkey2);
+	   
+   }
+
+   // Here we can reserve a particular animal someone may be looking for.    
+   public static void reserveAnimal(Scanner scnr) {
+	   
+	   //Collect the variables we need to look up an animal.
+	   System.out.println("What type of animal are you looking for?");
+	   String type = scnr.nextLine();
+	   
+	   System.out.println("And what country should this animal service in?");
+	   String country = scnr.nextLine();
+	   
+	   //Depending on the type entered it then checks the country entered and either reserves or outputs none found.
+	   if (type.equals("monkey")) {
+		   for(Monkey monkey: monkeyList) {
+			   if(monkey.getInServiceLocation().equalsIgnoreCase(country)) {
+				   monkey.setReserved(true);
+				   System.out.println("We have found a monkey that meets your requirements and reserved it.");
+				   return; //returns to menu
+			   }
+			   else {
+				   continue;
+			   }
+		   }
+		   System.out.println("We have no dog meeting your requirments.");
+		   return;
+	   }
+	   
+	   else if (type.equals("dog")) {
+		   for(Dog dog: dogList) {
+			   if(dog.getInServiceLocation().equalsIgnoreCase(country)) {
+				   dog.setReserved(true);
+				   System.out.println("We have found a dog that meets your requirements and reserved it.");
+				   return; //returns to menu
+			   }
+			   else {
+				   continue;
+			   }
+		   }
+		   System.out.println("We have no such dog meeting your requiremnets.");
+		   return;
+	   }
+	
+	   else {
+		   return;
+	   }
+   }
+
+   //Print animals using which option the user chose to decide what is output.
+   public static void printAnimals(int userInput) {
+
+	   if (userInput == 4) {
+		   System.out.println("This option needs to be implemented");
+	   }
+	   else if (userInput == 5) {
+		   System.out.println("This option needs to be implemented");
+	   }
+	   
+	   //Available animals check and then loops to print all available animals in both categories.
+	   else if (userInput == 6) {
+		   System.out.println("Available Monkeys: ");
+		   for(Monkey monkey: monkeyList) {
+			   if(monkey.getTrainingStatus().equals("in service") && !(monkey.getReserved())) {
+				   System.out.println("Name: " + monkey.getName());
+				   System.out.println("Status: " + monkey.getTrainingStatus());
+				   System.out.println("Acquisition country: " + monkey.getAcquisitionLocation());
+				   System.out.println("Reserved: " + monkey.getReserved());
+				   System.out.println("");  
+			   }
+		   }
+		   System.out.println("Available Dogs: ");
+		   for(Dog dog: dogList) {
+			   if(dog.getTrainingStatus().equals("in service") && !(dog.getReserved())) {
+				   System.out.println("Name: " + dog.getName());
+				   System.out.println("Status: " + dog.getTrainingStatus());
+				   System.out.println("Acquisition country: " + dog.getAcquisitionLocation());
+				   System.out.println("Reserved: " + dog.getReserved());
+				   System.out.println("");
+			   }
+		   }
+	   }
+   }
+}
+									</span></code></pre>
+									<h4>Rescue Animal File:</h4>
+									<pre><code><span class="inner-pre" style="font-size: 13px">	
+										
+
+import java.lang.String;
+
+public class RescueAnimal {
+
+    // Instance variables
+    private String name;
+    private String animalType;
+    private String gender;
+    private String age;
+    private String weight;
+    private String acquisitionDate;
+    private String acquisitionCountry;
+	private String trainingStatus;
+    private boolean reserved;
+	private String inServiceCountry;
+
+
+    // Constructor
+    public RescueAnimal() {
+    }
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getAnimalType() {
+		return animalType;
+	}
+
+
+	public void setAnimalType(String animalType) {
+		this.animalType = animalType;
+	}
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+	public String getAge() {
+		return age;
+	}
+
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+
+	public String getWeight() {
+		return weight;
+	}
+
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+
+	public String getAcquisitionDate() {
+		return acquisitionDate;
+	}
+
+
+	public void setAcquisitionDate(String acquisitionDate) {
+		this.acquisitionDate = acquisitionDate;
+	}
+
+
+	public String getAcquisitionLocation() {
+		return acquisitionCountry;
+	}
+
+
+	public void setAcquisitionLocation(String acquisitionCountry) {
+		this.acquisitionCountry = acquisitionCountry;
+	}
+
+
+	public boolean getReserved() {
+		return reserved;
+	}
+
+
+	public void setReserved(boolean reserved) {
+		this.reserved = reserved;
+	}
+
+
+	public String getInServiceLocation() {
+		return inServiceCountry;
+	}
+
+
+	public void setInServiceCountry(String inServiceCountry) {
+		this.inServiceCountry = inServiceCountry;
+	}
+
+
+
+
+	public String getTrainingStatus() {
+		return trainingStatus;
+	}
+
+
+	public void setTrainingStatus(String trainingStatus) {
+		this.trainingStatus = trainingStatus;
+	}
+}
+									</span></code></pre>	
+									<h4>Dog File:</h4>
+									<pre><code><span class="inner-pre" style="font-size: 13px">		
+
+public class Dog extends RescueAnimal {
+	// Instance variable
+	private String breed;
+					
+	public Dog() {
+	}
+
+	// Constructor
+	public Dog(String name, String breed, String gender, String age,
+	String weight, String acquisitionDate, String acquisitionCountry,
+	String trainingStatus, boolean reserved, String inServiceCountry) {
+		setName(name);
+		setBreed(breed);
+		setGender(gender);
+		setAge(age);
+		setWeight(weight);
+		setAcquisitionDate(acquisitionDate);
+		setAcquisitionLocation(acquisitionCountry);
+		setTrainingStatus(trainingStatus);
+		setReserved(reserved);
+		setInServiceCountry(inServiceCountry);
+	
+	}
+
+	// Accessor Method
+	public String getBreed() {
+		return breed;
+	}
+
+	// Mutator Method
+	public void setBreed(String dogBreed) {
+		breed = dogBreed;
+	}
+
+}
+									</span></code></pre>
+									<h4>Monkey File:</h4>
+									<pre><code><span class="inner-pre" style="font-size: 13px">
+										
+// Class monkey inherits the RescueAnimal class.
+public class Monkey extends RescueAnimal {
+	
+	// Declare private variables for monkey class.
+	private String species;
+	private String tailLength;
+	private String height;
+	private String bodyLength;
+	
+	public Monkey() {
+	}
+	
+	//Constructor method.
+	public Monkey(String name, String species, String gender, String age,
+		    String weight, String acquisitionDate, String acquisitionCountry,
+			String trainingStatus, boolean reserved, String inServiceCountry,
+			String tailLength, String height, String bodyLength) {
+		setName(name);
+        setSpecies(species);
+        setGender(gender);
+        setAge(age);
+        setWeight(weight);
+        setAcquisitionDate(acquisitionDate);
+        setAcquisitionLocation(acquisitionCountry);
+        setTrainingStatus(trainingStatus);
+        setReserved(reserved);
+        setInServiceCountry(inServiceCountry);
+        setTailLength(tailLength);
+        setHeight(height);
+        setBodyLength(bodyLength);
+	}
+
+	// Accessor Method
+    public String getSpecies() {
+        return species;
+    }
+
+    // Mutator Method
+    public void setSpecies(String monkeySpecies) {
+        species = monkeySpecies;
+    }
+    
+    // Accessor Method
+    public String getTailLength() {
+        return tailLength;
+    }
+
+    // Mutator Method
+    public void setTailLength(String tailLength) {
+        this.tailLength = tailLength;
+    }
+    
+    // Accessor Method
+    public String getHeight() {
+        return height;
+    }
+
+    // Mutator Method
+    public void setHeight(String height) {
+        this.height = height;
+    }
+    
+    // Accessor Method
+    public String getbodyLength() {
+        return bodyLength;
+    }
+
+    // Mutator Method
+    public void setBodyLength(String bodyLength) {
+        this.bodyLength = bodyLength;
+    }
+   	
+}
+									</span></code></pre>
+					</section>
+				</div>
+				<!-- Footer -->
+				<footer id="footer">
+					<section class="split contact">
+						<section>
+							<h3>Email</h3>
+							<p>patrick.hunt1@snhu.edu</p>
+						</section>
+						<section>
+							<h3>LinkedIn</h3>
+							<p><a href = "https://www.linkedin.com/in/patrick-hunt1/">www.linkedin.com/in/patrick-hunt1/</a></p>
+						</section>
+					</section>
+				</footer>
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
