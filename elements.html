@@ -145,13 +145,19 @@ show_instructions()
 									</span></code></pre>
 									<!-- Text stuff -->
 										<h2><a id="project2">Java Pet Grooming Service Portal</a></h2>
-										<p>Here is the code for the portal:</p>
-										<h4>Driver File:</h4>
+										<p>Here I used various OOP principles to output an intake portal to customers. The program then stored important information 
+											and made decisions based on that information.
+										</p>
+										<p>While doing this project I utilized various aspects of the Java programming language as well as proper software development 
+											techniques. Using multiple Java files or classes, array lists to store information, scanners to take input from the user,
+											variables with varying levels of access, methods to perform operations, constructors, loops, and if-else statements. as well as 
+											utilzing concepts such as inheritance.
+										</p>
+										<p>First some stuff from the beginning of our driver file or our main file that performs most of the main functionality. Within this driver
+											file we can see the declaration of the array lists being used, our main function, the intialization and use of the scanner, as well as
+											a loop to take inputs on the main menu. A catch is also implemented for good measure to catch on bad inputs.
+										</p>
 										<pre><code><span class="inner-pre" style="font-size: 13px">
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Driver {
 	
 	//Declare our array lists.
@@ -226,382 +232,81 @@ public class Driver {
 		} while (true);
 
 	}
+										</span></code></pre>
+										<p>This next snippet is an example of a method used to display the menu.
+										</p>
+										<pre><code><span class="inner-pre" style="font-size: 13px">
+// This method prints the menu options
 
-	// This method prints the menu options
-	public static void displayMenu() {
-		System.out.println("\n\n");
-		System.out.println("\t\t\t\tRescue Animal System Menu");
-		System.out.println("[1] Intake a new dog");
-		System.out.println("[2] Intake a new monkey");
-		System.out.println("[3] Reserve an animal");
-		System.out.println("[4] Print a list of all dogs");
-		System.out.println("[5] Print a list of all monkeys");
-		System.out.println("[6] Print a list of all animals that are not reserved");
-		System.out.println("[q] Quit application");
-		System.out.println();
-		System.out.println("Enter a menu selection");
-	}
-
-
-	// Adds dogs to a list for testing
-	public static void initializeDogList() {
-		Dog dog1 = new Dog("Spot", "German Shepherd", "male", "1", "25.6", "05-12-2019", "United States", "intake", false, "United States");
-		Dog dog2 = new Dog("Rex", "Great Dane", "male", "3", "35.2", "02-03-2020", "United States", "Phase I", false, "United States");
-		Dog dog3 = new Dog("Bella", "Chihuahua", "female", "4", "25.6", "12-12-2019", "Canada", "in service", false, "Canada");
-
-		dogList.add(dog1);
-		dogList.add(dog2);
-		dogList.add(dog3);
-	}
-
-
-	// Adds monkeys to a list for testing
-	public static void initializeMonkeyList() {
-		Monkey monkey1 = new Monkey ("Keith", "Macaque", "male", "7", "38", "06-02-2023", "Brazil", "intake", false, "United States", "3.14", "32", "12.6");
-		
-		monkeyList.add(monkey1);
-	}
-
-
-	//Intake new dog method, checks if name is already in system, need to add instantiation of the new dog.
-	public static void intakeNewDog(Scanner scnr) {
-		System.out.println("What is the dog's name?");
-		String name = scnr.nextLine();
-		
-		//Checks if dog is already in the system.
-		for(Dog dog: dogList) {
-			if(dog.getName().equalsIgnoreCase(name)) {
-				System.out.println("\n\nThis dog is already in our system\n\n");
-				return; //returns to menu
-			}
-		}
-		
-		//Add instantiation for new dog.
-		Dog dog4 = new Dog(); 
-		
-		//Set name and get inputs from user to add to the system.
-		dog4.setName(name);
-		
-		System.out.println("Please enter the dog's breed.");
-		String breed = scnr.nextLine();
-		dog4.setBreed(breed);
-		
-		System.out.println("Please enter the dog's gender.");
-		String gender = scnr.nextLine();
-		dog4.setGender(gender);
-		
-		System.out.println("Please enter the dog's age.");
-		String age = scnr.nextLine();
-		dog4.setAge(age);
-		
-		System.out.println("Please enter the dog's weight.");
-		String weight = scnr.nextLine();
-		dog4.setGender(weight);
-		
-		System.out.println("Please enter the dog's acquisition date.");
-		String acquisitionDate = scnr.nextLine();
-		dog4.setAcquisitionDate(acquisitionDate);
-		
-		System.out.println("Please enter the dog's acquisition country.");
-		String acquisitionCountry = scnr.nextLine();
-		dog4.setAcquisitionLocation(acquisitionCountry);
-		
-		dog4.setTrainingStatus("Intake");
-		dog4.setReserved(false);
-		dog4.setInServiceCountry("none");
-		
-		//Add the newly instantiated dog to the array list.
-		dogList.add(dog4);   
-		
-	}
-
-	//Intake new monkey method, checks if name is already in system, then checks if species is valid, then takes inputs for info.
-	public static void intakeNewMonkey(Scanner scnr) {
-		System.out.println("What is the monkey's name?");
-		String name = scnr.nextLine();
-		
-		for(Monkey monkey: monkeyList) {
-			if(monkey.getName().equalsIgnoreCase(name)) {
-				System.out.println("\n\nThis monkey is already in our system\n\n");
-				return; //returns to menu
-			}
-		}
-		
-		System.out.println("What species is the monkey?");
-		String species = scnr.nextLine();
-		
-		//This loop checks species and will break when it finds a match or output an error if it does not.
-		do {   
-			if (species.equals("capuchin")) {
-				break;
-			}
-			else if (species.equals( "guenon")){
-				break;
-			}
-			else if (species.equals("macaque")) {
-				break;
-			}
-			else if (species.equals("marmoset")) {
-				break;
-			}
-			else if (species.equals("squirrel monkey")) {
-				break;
-			}
-			else if (species.equals("tamarin")) {
-				break;
-			}
-			else {
-				System.out.println("Invalid species.");
-				return;
-			}
-		} while (true);
-		
-		//Instantiate a new monkey, set name and species, and then collect the rest of information.
-		Monkey monkey2 = new Monkey();
-		monkey2.setName(name);
-		monkey2.setSpecies(species);
-		
-		System.out.println("Please enter the monkey's gender.");
-		String gender = scnr.nextLine();
-		monkey2.setGender(gender);
-		
-		System.out.println("Please enter the monkey's age.");
-		String age = scnr.nextLine();
-		monkey2.setAge(age);
-		
-		System.out.println("Please enter the monkey's weight.");
-		String weight = scnr.nextLine();
-		monkey2.setGender(weight);
-		
-		System.out.println("Please enter the monkey's acquisition date.");
-		String acquisitionDate = scnr.nextLine();
-		monkey2.setAcquisitionDate(acquisitionDate);
-		
-		System.out.println("Please enter the monkey's acquisition country.");
-		String acquisitionCountry = scnr.nextLine();
-		monkey2.setAcquisitionLocation(acquisitionCountry);
-		
-		monkey2.setTrainingStatus("Intake");
-		monkey2.setReserved(false);
-		monkey2.setInServiceCountry("none");
-		
-		monkeyList.add(monkey2);
-	   
-   }
-
-   // Here we can reserve a particular animal someone may be looking for.    
-   public static void reserveAnimal(Scanner scnr) {
-	   
-	   //Collect the variables we need to look up an animal.
-	   System.out.println("What type of animal are you looking for?");
-	   String type = scnr.nextLine();
-	   
-	   System.out.println("And what country should this animal service in?");
-	   String country = scnr.nextLine();
-	   
-	   //Depending on the type entered it then checks the country entered and either reserves or outputs none found.
-	   if (type.equals("monkey")) {
-		   for(Monkey monkey: monkeyList) {
-			   if(monkey.getInServiceLocation().equalsIgnoreCase(country)) {
-				   monkey.setReserved(true);
-				   System.out.println("We have found a monkey that meets your requirements and reserved it.");
-				   return; //returns to menu
-			   }
-			   else {
-				   continue;
-			   }
-		   }
-		   System.out.println("We have no dog meeting your requirments.");
-		   return;
-	   }
-	   
-	   else if (type.equals("dog")) {
-		   for(Dog dog: dogList) {
-			   if(dog.getInServiceLocation().equalsIgnoreCase(country)) {
-				   dog.setReserved(true);
-				   System.out.println("We have found a dog that meets your requirements and reserved it.");
-				   return; //returns to menu
-			   }
-			   else {
-				   continue;
-			   }
-		   }
-		   System.out.println("We have no such dog meeting your requiremnets.");
-		   return;
-	   }
-	
-	   else {
-		   return;
-	   }
-   }
-
-   //Print animals using which option the user chose to decide what is output.
-   public static void printAnimals(int userInput) {
-
-	   if (userInput == 4) {
-		   System.out.println("This option needs to be implemented");
-	   }
-	   else if (userInput == 5) {
-		   System.out.println("This option needs to be implemented");
-	   }
-	   
-	   //Available animals check and then loops to print all available animals in both categories.
-	   else if (userInput == 6) {
-		   System.out.println("Available Monkeys: ");
-		   for(Monkey monkey: monkeyList) {
-			   if(monkey.getTrainingStatus().equals("in service") && !(monkey.getReserved())) {
-				   System.out.println("Name: " + monkey.getName());
-				   System.out.println("Status: " + monkey.getTrainingStatus());
-				   System.out.println("Acquisition country: " + monkey.getAcquisitionLocation());
-				   System.out.println("Reserved: " + monkey.getReserved());
-				   System.out.println("");  
-			   }
-		   }
-		   System.out.println("Available Dogs: ");
-		   for(Dog dog: dogList) {
-			   if(dog.getTrainingStatus().equals("in service") && !(dog.getReserved())) {
-				   System.out.println("Name: " + dog.getName());
-				   System.out.println("Status: " + dog.getTrainingStatus());
-				   System.out.println("Acquisition country: " + dog.getAcquisitionLocation());
-				   System.out.println("Reserved: " + dog.getReserved());
-				   System.out.println("");
-			   }
-		   }
-	   }
-   }
+public static void displayMenu() {
+	System.out.println("\n\n");
+	System.out.println("\t\t\t\tRescue Animal System Menu");
+	System.out.println("[1] Intake a new dog");
+	System.out.println("[2] Intake a new monkey");
+	System.out.println("[3] Reserve an animal");
+	System.out.println("[4] Print a list of all dogs");
+	System.out.println("[5] Print a list of all monkeys");
+	System.out.println("[6] Print a list of all animals that are not reserved");
+	System.out.println("[q] Quit application");
+	System.out.println();
+	System.out.println("Enter a menu selection");
 }
-									</span></code></pre>
-									<h4>Rescue Animal File:</h4>
-									<pre><code><span class="inner-pre" style="font-size: 13px">	
-										
+										</span></code></pre>
+										<p>Here we can see the program checks to see if the animal is already in the system and if not will go on to add all the necessary
+											information. The outputs that follow the last are similar and each one gets a valuable piece of information.
+										</p>
+										<pre><code><span class="inner-pre" style="font-size: 13px">
+//Intake new dog method, checks if name is already in system, need to add instantiation of the new dog.
 
-import java.lang.String;
-
+public static void intakeNewDog(Scanner scnr) {
+	System.out.println("What is the dog's name?");
+	String name = scnr.nextLine();
+	
+	//Checks if dog is already in the system.
+	for(Dog dog: dogList) {
+		if(dog.getName().equalsIgnoreCase(name)) {
+			System.out.println("\n\nThis dog is already in our system\n\n");
+			return; //returns to menu
+		}
+	}
+	
+	//Add instantiation for new dog.
+	Dog dog4 = new Dog(); 
+	
+	//Set name and get inputs from user to add to the system.
+	dog4.setName(name);										
+										</span></code></pre>
+										<p>As we move on to another class called Rescue Animal, this class will be the foundation for each specific animal class.
+											In other words, the dog and monkey class will inherit this one.
+										</p>
+										<pre><code><span class="inner-pre" style="font-size: 13px">
 public class RescueAnimal {
-
-    // Instance variables
-    private String name;
-    private String animalType;
-    private String gender;
-    private String age;
-    private String weight;
-    private String acquisitionDate;
-    private String acquisitionCountry;
+	// Instance variables
+	private String name;
+	private String animalType;
+	private String gender;
+	private String age;
+	private String weight;
+	private String acquisitionDate;
+	private String acquisitionCountry;
 	private String trainingStatus;
-    private boolean reserved;
+	private boolean reserved;
 	private String inServiceCountry;
 
 
-    // Constructor
-    public RescueAnimal() {
-    }
+	// Constructor
+	public RescueAnimal() {
+	}
 
 
 	public String getName() {
 		return name;
 	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public String getAnimalType() {
-		return animalType;
-	}
-
-
-	public void setAnimalType(String animalType) {
-		this.animalType = animalType;
-	}
-
-
-	public String getGender() {
-		return gender;
-	}
-
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-
-	public String getAge() {
-		return age;
-	}
-
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-
-	public String getWeight() {
-		return weight;
-	}
-
-
-	public void setWeight(String weight) {
-		this.weight = weight;
-	}
-
-
-	public String getAcquisitionDate() {
-		return acquisitionDate;
-	}
-
-
-	public void setAcquisitionDate(String acquisitionDate) {
-		this.acquisitionDate = acquisitionDate;
-	}
-
-
-	public String getAcquisitionLocation() {
-		return acquisitionCountry;
-	}
-
-
-	public void setAcquisitionLocation(String acquisitionCountry) {
-		this.acquisitionCountry = acquisitionCountry;
-	}
-
-
-	public boolean getReserved() {
-		return reserved;
-	}
-
-
-	public void setReserved(boolean reserved) {
-		this.reserved = reserved;
-	}
-
-
-	public String getInServiceLocation() {
-		return inServiceCountry;
-	}
-
-
-	public void setInServiceCountry(String inServiceCountry) {
-		this.inServiceCountry = inServiceCountry;
-	}
-
-
-
-
-	public String getTrainingStatus() {
-		return trainingStatus;
-	}
-
-
-	public void setTrainingStatus(String trainingStatus) {
-		this.trainingStatus = trainingStatus;
-	}
-}
-									</span></code></pre>	
-									<h4>Dog File:</h4>
-									<pre><code><span class="inner-pre" style="font-size: 13px">		
-
+										</span></code></pre>
+										<p>In this next snippet from the Dog class, we can see that it extends Rescue Animals and also has accessors and mutators to
+											get and change the values. Our last class, the monkey class, looks very similar.
+										</p>
+										<pre><code><span class="inner-pre" style="font-size: 13px">
 public class Dog extends RescueAnimal {
 	// Instance variable
 	private String breed;
@@ -635,86 +340,7 @@ public class Dog extends RescueAnimal {
 	public void setBreed(String dogBreed) {
 		breed = dogBreed;
 	}
-
-}
-									</span></code></pre>
-									<h4>Monkey File:</h4>
-									<pre><code><span class="inner-pre" style="font-size: 13px">
-										
-// Class monkey inherits the RescueAnimal class.
-public class Monkey extends RescueAnimal {
-	
-	// Declare private variables for monkey class.
-	private String species;
-	private String tailLength;
-	private String height;
-	private String bodyLength;
-	
-	public Monkey() {
-	}
-	
-	//Constructor method.
-	public Monkey(String name, String species, String gender, String age,
-		    String weight, String acquisitionDate, String acquisitionCountry,
-			String trainingStatus, boolean reserved, String inServiceCountry,
-			String tailLength, String height, String bodyLength) {
-		setName(name);
-        setSpecies(species);
-        setGender(gender);
-        setAge(age);
-        setWeight(weight);
-        setAcquisitionDate(acquisitionDate);
-        setAcquisitionLocation(acquisitionCountry);
-        setTrainingStatus(trainingStatus);
-        setReserved(reserved);
-        setInServiceCountry(inServiceCountry);
-        setTailLength(tailLength);
-        setHeight(height);
-        setBodyLength(bodyLength);
-	}
-
-	// Accessor Method
-    public String getSpecies() {
-        return species;
-    }
-
-    // Mutator Method
-    public void setSpecies(String monkeySpecies) {
-        species = monkeySpecies;
-    }
-    
-    // Accessor Method
-    public String getTailLength() {
-        return tailLength;
-    }
-
-    // Mutator Method
-    public void setTailLength(String tailLength) {
-        this.tailLength = tailLength;
-    }
-    
-    // Accessor Method
-    public String getHeight() {
-        return height;
-    }
-
-    // Mutator Method
-    public void setHeight(String height) {
-        this.height = height;
-    }
-    
-    // Accessor Method
-    public String getbodyLength() {
-        return bodyLength;
-    }
-
-    // Mutator Method
-    public void setBodyLength(String bodyLength) {
-        this.bodyLength = bodyLength;
-    }
-   	
-}
-									</span></code></pre>
+										</span></code></pre>
 					</section>
 				</div>
 				<!-- Footer -->
