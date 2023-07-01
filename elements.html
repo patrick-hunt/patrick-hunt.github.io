@@ -46,65 +46,35 @@
 
 								<!-- Text stuff -->
 									<h2><a id="project1">Python Text-Base Game</a></h2>
-									<p>Here is the code for the game:</p>
+									<p>This project utilized various software development principles to output a text-based adventure game to the player. 
+										The player needs to collect an assortment of items before exiting the scenario.
+									</p>
+									<p>I utilized many different aspects of the programming language Python, coding and using dictionaries, functions, lists, variables, 
+										loops, and if-else statements. while programming I also practiced good commenting and applied the best coding practices for
+										readability. 
+									</p>
+									<p>In this snippet I utilized a function that would be the start of our main program.
+									</p>
 									<pre><code><span class="inner-pre" style="font-size: 13px">
-# Patrick Hunt
-# IT 140
+# Function to call in main to start the game and display a menu.
 
-# This function returns the item for a given room.
+	def show_instructions():
+		print('The Heist at the Museum')
+			print('Collect 6 items to beat the security, or else spend time in a cell!')
+			print('Move commands: go South, go North, go East, go West')
+			print("To add to Inventory: get 'item name'")
+			print('-' * 20)
 
-
-def get_item(currentRoom):
-
-	# This dictionary is used to reference items in various rooms.
-
-	items = {'Entry': 'No Item', 'Main Foyer': 'Key', 'Locked Storage': 'Manuscript',
-			 'Ancient Explorers Exhibit': 'Golden Telescope', 'Ancient Civ Exhibit': 'Stone Statue',
-			 'Art Exhibit': 'Pollock Painting', 'Gem Room': 'Emerald', 'Warrior Exhibit': 'Katana',
-			 'Security Room': 'No Item'}
-
-	return items[currentRoom]
-
-
-# This function prints the possible moves and to which rooms a player can make.
-
-
-def possible_moves(currentRoom):
-
-	# This dictionary links a room to other rooms, so we can print the possible moves from each room.
-
-	rooms = {
-		'Entry': {'North': 'Main Foyer'},
-		'Main Foyer': {'North': 'Locked Storage', 'East': 'Ancient Explorers Exhibit', 'West': 'Ancient Civ Exhibit'},
-		'Locked Storage': {'South': 'Main Foyer'},
-		'Ancient Explorers Exhibit': {'North': 'Art Exhibit', 'West': 'Main Foyer'},
-		'Ancient Civ Exhibit': {'South': 'Warrior Exhibit', 'North': 'Gem Room', 'East': 'Main Foyer'},
-		'Art Exhibit': {'South': 'Ancient Explorers Exhibit', 'East': 'Security Room'},
-		'Security Room': {'West': 'Art Exhibit'},
-		'Gem Room': {'South': 'Ancient Civ Exhibit'},
-		'Warrior Exhibit': {'North': 'Ancient Civ Exhibit'}
-	}
-
-	print("Possible moves: get 'Item', {}".format(rooms[currentRoom]))
-
-
-# This function prints the instructions.
-
-
-def show_instructions():
-	print('The Heist at the Museum')
-	print('Collect 6 items to beat the security, or else spend time in a cell!')
-	print('Move commands: go South, go North, go East, go West')
-	print("To add to Inventory: get 'item name'")
-	print('-' * 20)
-
-
-# This function prints the status including the room the player is in, the inventory, and the item in the current room.
-
+									</span></code></pre>
+									<p>In this next snippet I utilized a function to get the status of a player. This included the players locaton, item in that room, and
+										items in their inventory.
+									</p>
+									<pre><code><span class="inner-pre" style="font-size: 13px">
+# Function to show the player's current room, what item is in that room, and what items they have already collected.
 
 def show_status(currentRoom, inventory):
 
-	# This dictionary holds our items and where they're located, so we can assign an item to a variable.
+	# This dictionary holds our items and where they're located.
 
 	items = {'Entry': 'No Item', 'Main Foyer': 'Key', 'Locked Storage': 'Manuscript',
 			 'Ancient Explorers Exhibit': 'Golden Telescope', 'Ancient Civ Exhibit': 'Stone Statue',
@@ -115,41 +85,28 @@ def show_status(currentRoom, inventory):
 	print('You are in the {}.'.format(currentRoom))
 	print('Current Inventory: {}'.format(inventory))
 	print('Item in current room: {}'.format(roomItem))
+									</span></code></pre>
+									<p>This next snippet shows the use of lists and the intialization of some variables outside our main loop.
+									</p>
+									<pre><code><span class="inner-pre" style="font-size: 13px"></span>
+# A list to test if entries are valid or not.
 
+valid_list_options = ('go South', 'go North', 'go East', 'go West', 'exit')
 
-# This is the main function which contains the main components that will run our program.
+# Initialize our variables.
 
+currentRoom = 'Entry'
+inventory = []
+									</span></code></pre>
+									<p>In this snippet we can see the beginning of our game as well as the main loop to keep the user playing the game. The first if
+										statement can also be seen, the other elif statements that follow are of similar structure based on the current room.
+									</p>
+									<pre><code><span class="inner-pre" style="font-size: 13px"></span>
+# Print our opening welcome and directions.
 
-def main():
+show_instructions()
 
-	# This dictionary links a room to other rooms.
-
-	rooms = {
-		'Entry': {'North': 'Main Foyer'},
-		'Main Foyer': {'North': 'Locked Storage', 'East': 'Ancient Explorers Exhibit', 'West': 'Ancient Civ Exhibit'},
-		'Locked Storage': {'South': 'Main Foyer'},
-		'Ancient Explorers Exhibit': {'North': 'Art Exhibit', 'West': 'Main Foyer'},
-		'Ancient Civ Exhibit': {'South': 'Warrior Exhibit', 'North': 'Gem Room', 'East': 'Main Foyer'},
-		'Art Exhibit': {'South': 'Ancient Explorers Exhibit', 'East': 'Security Room'},
-		'Security Room': {'West': 'Art Exhibit'},
-		'Gem Room': {'South': 'Ancient Civ Exhibit'},
-		'Warrior Exhibit': {'North': 'Ancient Civ Exhibit'}
-	}
-
-	# A list to test if entries are valid or not.
-
-	valid_list_options = ('go South', 'go North', 'go East', 'go West', 'exit')
-
-	# Initialize our variables.
-
-	currentRoom = 'Entry'
-	inventory = []
-
-	# Print our opening welcome and directions.
-
-	show_instructions()
-
-	# The main game loop.
+	# Outer loop that starts the game.
 
 	while True:
 		if currentRoom == 'exit':
@@ -162,7 +119,7 @@ def main():
 			while True:
 				if currentRoom == list(rooms.keys())[0]:
 					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
+					print('Possible moves: {}'.format(rooms[currentRoom]))
 					command = input('Enter your move: ')
 
 					# This inner while loop is needed in each room so that if invalid commands are entered the user will
@@ -178,14 +135,6 @@ def main():
 						elif command == 'exit':
 							currentRoom = 'exit'
 							break
-
-						# Programmer cheat codes for easter egg.
-
-						elif command == 'cheat codes':
-							inventory = ['Key', 'Manuscript', 'Stone Statue', 'Emerald', 'Katana', 'Golden Telescope,',
-										 'Pollock Painting']
-							currentRoom = 'Art Exhibit'
-							break
 						else:
 							if command in valid_list_options:
 								command = input('Valid answer but not for this room, please enter a valid command: ')
@@ -193,238 +142,7 @@ def main():
 							else:
 								command = input('Invalid answer, please enter a valid command: ')
 								continue
-				elif currentRoom == list(rooms.keys())[1]:
-					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
-					command = input('Enter your move: ')
-					while True:
-						if command == 'go North':
-							currentRoom = 'Locked Storage'
-							break
-						elif command == 'go East':
-							currentRoom = 'Ancient Explorers Exhibit'
-							break
-						elif command == 'go West':
-							currentRoom = 'Ancient Civ Exhibit'
-							break
-
-						# This command checks to see if the get 'item' command has been entered.
-
-						elif command == 'get Key':
-
-							# Checks to see if the 'item' has already been picked up and breaks if it does as to not
-							# repeat.
-
-							if 'Key' in inventory:
-								print("You already have that item! Let's move on.")
-								break
-
-							# If 'item' is not in the inventory this command adds it and prints a notification.
-
-							else:
-								inventory.append(get_item(currentRoom))
-								print("You got the 'Key'!")
-								break
-						elif command == 'exit':
-							currentRoom = 'exit'
-							break
-						else:
-							if command in valid_list_options:
-								command = input('Valid answer but not for this room, please enter a valid command: ')
-								continue
-							else:
-								command = input('Invalid, please enter a valid command: ')
-								continue
-				elif currentRoom == list(rooms.keys())[2]:
-					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
-					command = input('Enter your move: ')
-					while True:
-						if command == 'go South':
-							currentRoom = 'Main Foyer'
-							break
-						elif command == 'exit':
-							currentRoom = 'exit'
-							break
-						elif command == 'get Manuscript':
-							if 'Manuscript' in inventory:
-								break
-							else:
-								inventory.append(get_item(currentRoom))
-								print("You got the 'Manuscript'!")
-								break
-						else:
-							if command in valid_list_options:
-								command = input('Valid answer but not for this room, please enter a valid command: ')
-								continue
-							else:
-								command = input('Invalid, please enter a valid command: ')
-								continue
-				elif currentRoom == list(rooms.keys())[3]:
-					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
-					command = input('Enter your move: ')
-					while True:
-						if command == 'go West':
-							currentRoom = 'Main Foyer'
-							break
-						elif command == 'go North':
-							currentRoom = 'Art Exhibit'
-							break
-						elif command == 'exit':
-							currentRoom = 'exit'
-							break
-						elif command == 'get Golden Telescope':
-							if 'Golden Telescope' in inventory:
-								break
-							else:
-								inventory.append(get_item(currentRoom))
-								print("You got the 'Golden Telescope'!")
-								break
-						else:
-							if command in valid_list_options:
-								command = input('Valid answer but not for this room, please enter a valid command: ')
-								continue
-							else:
-								command = input('Invalid, please enter a valid command: ')
-								continue
-				elif currentRoom == list(rooms.keys())[4]:
-					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
-					command = input('Enter your move: ')
-					while True:
-						if command == 'go East':
-							currentRoom = 'Main Foyer'
-							break
-						elif command == 'go North':
-							currentRoom = 'Gem Room'
-							break
-						elif command == 'go South':
-							currentRoom = 'Warrior Exhibit'
-							break
-						elif command == 'exit':
-							currentRoom = 'exit'
-							break
-						elif command == 'get Stone Statue':
-							if 'Stone Statue' in inventory:
-								break
-							else:
-								inventory.append(get_item(currentRoom))
-								print("You got the 'Stone Statue'!")
-								break
-						else:
-							if command in valid_list_options:
-								command = input('Valid answer but not for this room, please enter a valid command: ')
-								continue
-							else:
-								command = input('Invalid, please enter a valid command: ')
-								continue
-				elif currentRoom == list(rooms.keys())[5]:
-					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
-					command = input('Enter your move: ')
-					while True:
-						if command == 'go East':
-							if len(inventory) == 7:
-								currentRoom = 'Security Room'
-								break
-							else:
-								print("You haven't collected all 6 items! Go collect them all to advance.")
-								break
-						elif command == 'go South':
-							currentRoom = 'Ancient Explorers Exhibit'
-							break
-						elif command == 'exit':
-							currentRoom = 'exit'
-							break
-						elif command == 'get Pollock Painting':
-							if 'Pollock Painting' in inventory:
-								break
-							else:
-								inventory.append(get_item(currentRoom))
-								print("You got the Pollock Painting'!")
-								break
-						else:
-							if command in valid_list_options:
-								command = input('Valid answer but not for this room, please enter a valid command: ')
-								continue
-							else:
-								command = input('Invalid, please enter a valid command: ')
-								continue
-				elif currentRoom == list(rooms.keys())[6]:
-					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
-					command = input("You have made it to the security room with all the items you need. Type: ':)' to "
-									"win. ")
-					while True:
-						if command == ':)':
-							print("Congratulations on being the best criminal!")
-							currentRoom = 'exit'
-							break
-						else:
-							print("YoU lOsE!")
-							currentRoom = 'exit'
-							break
-				elif currentRoom == list(rooms.keys())[7]:
-					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
-					command = input('Enter your move: ')
-					while True:
-						if command == 'go South':
-							currentRoom = 'Ancient Civ Exhibit'
-							break
-						elif command == 'exit':
-							currentRoom = 'exit'
-							break
-						elif command == 'get Emerald':
-							if 'Emerald' in inventory:
-								break
-							else:
-								inventory.append(get_item(currentRoom))
-								print("You got the 'Emerald'!")
-								break
-						else:
-							if command in valid_list_options:
-								command = input('Valid answer but not for this room, please enter a valid command: ')
-								continue
-							else:
-								command = input('Invalid, please enter a valid command: ')
-								continue
-				elif currentRoom == list(rooms.keys())[8]:
-					show_status(currentRoom, inventory)
-					possible_moves(currentRoom)
-					command = input('Enter your move: ')
-					while True:
-						if command == 'go North':
-							currentRoom = 'Ancient Civ Exhibit'
-							break
-						elif command == 'exit':
-							currentRoom = 'exit'
-							break
-						elif command == 'get Katana':
-							if 'Katana' in inventory:
-								break
-							else:
-								inventory.append(get_item(currentRoom))
-								print("You got the 'Katana'!")
-								break
-						else:
-							if command in valid_list_options:
-								command = input('Valid answer but not for this room, please enter a valid command: ')
-								continue
-							else:
-								command = input('Invalid, please enter a valid command: ')
-								continue
-				else:
-					break
-			continue
-
-
-if __name__ == "__main__":
-	main()
-	
 									</span></code></pre>
-								
 									<!-- Text stuff -->
 										<h2><a id="project2">Java Pet Grooming Service Portal</a></h2>
 										<p>Here is the code for the portal:</p>
